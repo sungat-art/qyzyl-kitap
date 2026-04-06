@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Қадыр Мырзалиев - Қызыл кітап</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Montserrat', sans-serif;
+        /* Сұрғылт-күңгірт қабат (0.7 мөлдірлік) және сурет */
+        background-image: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.3)), url('background.jpg');
+        
+        /* СУРЕТ ЖЫЛЖЫМАЙ БІР ОРЫНДА ТҰРУЫ ҮШІН: */
+        background-attachment: fixed;
+        
+        /* СУРЕТ ЭКРАНҒА ТОЛЫҚ СЫЮЫ ҮШІН: */
+        background-size: 100% 100%; 
+        background-position: center;
+        background-repeat: no-repeat;
+
+        color: #f8fafc;
+        margin: 0;
+        padding: 0;
+    }
+
+    .playfair {
+        font-family: 'Playfair Display', serif;
+    }
+
+    /* СІЗДІҢ БАСТАПҚЫ ҚҰРЫЛЫМЫҢЫЗ (ӨЗГЕРІССІЗ): */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .glass-card:hover {
+        border-color: #ef4444;
+        transform: translateY(-5px);
+    }
+
+    .red-accent {
+        color: #ef4444;
+    }
+
+    .btn-gradient {
+        background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+        color: white !important;
+    }
+
+    .animal-chip {
+        cursor: pointer;
+        transition: all 0.2s;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .animal-chip.selected {
+        background-color: #ef4444;
+        border-color: #ef4444;
+        color: white;
+    }
+
+    .check-icon {
+        display: none;
+    }
+
+    .animal-chip.selected .check-icon {
+        display: inline;
+    }
+
+    input, textarea {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+        border-radius: 0.5rem;
+        padding: 0.75rem;
+        width: 100%;
+    }
+
+    #resultModal {
+        display: none;
+        background: rgba(15, 23, 42, 0.98);
+    }
+</style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-5xl mx-auto">
+        <!-- Header Section -->
+        <header class="text-center mb-16">
+            <span class="text-red-500 font-bold tracking-widest uppercase text-sm">Қазақ әдебиеті - 11 сынып</span>
+            <h1 class="playfair text-5xl md:text-7xl mt-4 mb-2">Қызыл кітап</h1>
+            <p class="text-slate-400 text-lg italic">Қадыр Мырзалиев — Табиғат пен Адам қақтығысы</p>
+            <div class="w-24 h-1 bg-red-600 mx-auto mt-6"></div>
+        </header>
+
+        <!-- Task 1: Find the Animals -->
+        <section class="mb-12">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="bg-red-600 p-2 rounded-lg">🔍</div>
+                <h2 class="text-2xl font-bold">1-тапсырма: Поэмадағы биоалуантүрлілік</h2>
+            </div>
+            <p class="text-slate-400 mb-6">Мәтінде кездесетін жойылып бара жатқан немесе сирек аң-құстарды белгілеңіз:</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="animalGrid">
+                <div class="animal-chip p-4 rounded-xl glass-card flex justify-between items-center" onclick="toggleSelection(this)" data-name="Мамонт">
+                    <span>🦣 Мамонт</span> <span class="check-icon">✓</span>
+                </div>
+                <div class="animal-chip p-4 rounded-xl glass-card flex justify-between items-center" onclick="toggleSelection(this)" data-name="Ақбөкен">
+                    <span>🦌 Ақбөкен</span> <span class="check-icon">✓</span>
+                </div>
+                <div class="animal-chip p-4 rounded-xl glass-card flex justify-between items-center" onclick="toggleSelection(this)" data-name="Жолбарыс">
+                    <span>🐅 Жолбарыс</span> <span class="check-icon">✓</span>
+                </div>
+                <div class="animal-chip p-4 rounded-xl glass-card flex justify-between items-center" onclick="toggleSelection(this)" data-name="Құлан">
+                    <span>🐎 Құлан</span> <span class="check-icon">✓</span>
+                </div>
+                <div class="animal-chip p-4 rounded-xl glass-card flex justify-between items-center" onclick="toggleSelection(this)" data-name="Ілбісін">
+                    <span>🐆 Ілбісін</span> <span class="check-icon">✓</span>
+                </div>
+                <div class="animal-chip p-4 rounded-xl glass-card flex justify-between items-center" onclick="toggleSelection(this)" data-name="Аққу">
+                    <span>🦢 Аққу</span> <span class="check-icon">✓</span>
+                </div>
+                <div class="animal-chip p-4 rounded-xl glass-card flex justify-between items-center" onclick="toggleSelection(this)" data-name="Дронт">
+                    <span>🕊️ Дронт</span> <span class="check-icon">✓</span>
+                </div>
+                <div class="animal-chip p-4 rounded-xl glass-card flex justify-between items-center" onclick="toggleSelection(this)" data-name="Тур">
+                    <span>🐃 Тур</span> <span class="check-icon">✓</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Task 2: Ideology & Truth -->
+        <section class="mb-12">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="bg-red-600 p-2 rounded-lg">⚖️</div>
+                <h2 class="text-2xl font-bold">2-тапсырма: Авторлық идея және өмір шындығы</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card p-6">
+                    <h3 class="text-red-400 font-bold mb-4 uppercase text-xs tracking-wider">Шығармадағы көрініс</h3>
+                    <p class="italic text-sm text-slate-300 border-l-2 border-red-600 pl-4 mb-4">
+                        "Мылтық көрсем төрлерден іліп қойған, <br>
+                        Менің мазам кетеді күдікті ойдан..."
+                    </p>
+                    <p class="text-xs text-slate-500">Бұл жолдардағы автордың мазасыздығы бүгінгі браконьерлік мәселесімен қалай үндеседі?</p>
+                </div>
+                <div class="glass-card p-6">
+                    <h3 class="text-red-400 font-bold mb-4 uppercase text-xs tracking-wider">Қазіргі заман шындығы</h3>
+                    <textarea id="task2_input" class="h-24 text-sm" placeholder="Өз ойыңызды осында жазыңыз..."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- Task 3: "Қос жазба" күнделігі -->
+        <section class="mb-12">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="bg-red-600 p-2 rounded-lg">📔</div>
+                <h2 class="text-2xl font-bold">3-тапсырма: «Қос жазба» күнделігі</h2>
+            </div>
+            <div class="overflow-hidden rounded-2xl border border-slate-700">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-slate-800">
+                        <tr>
+                            <th class="p-4 border-b border-slate-700 w-1/2">Үзінді (Пікір-тұжырым)</th>
+                            <th class="p-4 border-b border-slate-700 w-1/2">Түсіндірме (Сіздің ойыңыз)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-slate-900/50">
+                        <tr>
+                            <td class="p-4 border-b border-slate-800 text-sm italic">"Аңдар бастан кешкенді Дала кешпек..."</td>
+                            <td class="p-4 border-b border-slate-800">
+                                <input type="text" id="journal1" class="text-sm" placeholder="Бұл нені білдіреді?">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 border-b border-slate-800 text-sm italic">"Жердің өзі жоғалмай тұрған кезде!"</td>
+                            <td class="p-4 border-b border-slate-800">
+                                <input type="text" id="journal2" class="text-sm" placeholder="Ақынның қаупі не?">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Feedback Section -->
+        <section class="mb-20">
+            <div class="glass-card p-8 bg-gradient-to-br from-red-950/20 to-transparent">
+                <h2 class="playfair text-3xl mb-6">Кері байланыс: «Зерде»</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-red-500 mb-2 uppercase">Білім</label>
+                        <textarea id="refl_knowledge" class="h-20 text-xs" placeholder="Жаңадан не білдім?"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-red-500 mb-2 uppercase">Эмоция</label>
+                        <textarea id="refl_emotion" class="h-20 text-xs" placeholder="Көңіл-күйім қандай?"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-red-500 mb-2 uppercase">Идея</label>
+                        <textarea id="refl_idea" class="h-20 text-xs" placeholder="Маған келген жаңа ой..."></textarea>
+                    </div>
+                </div>
+                <button onclick="generateSummary()" class="w-full mt-8 btn-gradient py-4 rounded-xl font-bold text-lg hover:shadow-lg hover:shadow-red-500/20 transition-all uppercase tracking-widest">
+                    Сабақты аяқтау және Қорытынды шығару 🚩
+                </button>
+            </div>
+        </section>
+
+        <!-- Summary Modal -->
+        <div id="resultModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div class="glass-card w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 border-2 border-red-600">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="playfair text-3xl text-red-500">Сабақ қорытындысы</h2>
+                    <button onclick="closeModal()" class="text-slate-400 hover:text-white">✕ Жабу</button>
+                </div>
+                
+                <div id="summaryContent" class="space-y-6 text-sm">
+                    <!-- Results will be injected here -->
+                </div>
+
+                <div class="mt-8 flex gap-4">
+                    <button onclick="window.print()" class="flex-1 bg-slate-700 py-3 rounded-lg font-bold hover:bg-slate-600 transition-colors">
+                        🖨️ Нәтижені басып шығару
+                    </button>
+                    <button onclick="closeModal()" class="flex-1 bg-red-600 py-3 rounded-lg font-bold hover:bg-red-700 transition-colors">
+                        ✅ Түсінікті
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center text-slate-500 text-sm pb-10">
+            <p>© «Қызыл кітап» интерактивті оқу модулі. <br> Адамзаттың табиғат алдындағы парызы.</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleSelection(element) {
+            element.classList.toggle('selected');
+        }
+
+        function closeModal() {
+            document.getElementById('resultModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function generateSummary() {
+            // 1. Collect Data
+            const selectedAnimals = Array.from(document.querySelectorAll('.animal-chip.selected'))
+                                         .map(el => el.getAttribute('data-name'));
+            
+            const task2Response = document.getElementById('task2_input').value;
+            const journal1 = document.getElementById('journal1').value;
+            const journal2 = document.getElementById('journal2').value;
+            const reflK = document.getElementById('refl_knowledge').value;
+            const reflE = document.getElementById('refl_emotion').value;
+            const reflI = document.getElementById('refl_idea').value;
+
+            // 2. Validation
+            if (selectedAnimals.length === 0 && !task2Response && !reflK) {
+                alert("Сабақты аяқтау үшін тапсырмаларды орындаңыз!");
+                return;
+            }
+
+            // 3. Build Summary HTML
+            const summaryHTML = `
+                <div class="space-y-4">
+                    <div class="p-4 bg-slate-800/50 rounded-xl">
+                        <h4 class="text-red-400 font-bold mb-2 uppercase text-xs">Таңдалған аң-құстар:</h4>
+                        <p class="text-slate-200">${selectedAnimals.length > 0 ? selectedAnimals.join(', ') : 'Белгіленбеді'}</p>
+                    </div>
+
+                    <div class="p-4 bg-slate-800/50 rounded-xl">
+                        <h4 class="text-red-400 font-bold mb-2 uppercase text-xs">Авторлық идея мен шындық туралы ой:</h4>
+                        <p class="text-slate-300 italic">${task2Response || 'Жауап жазылмады'}</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-800/50 rounded-xl">
+                            <h4 class="text-red-400 font-bold mb-1 uppercase text-[10px]">Күнделік 1 түсіндірмесі:</h4>
+                            <p class="text-slate-300 text-xs">${journal1 || '—'}</p>
+                        </div>
+                        <div class="p-4 bg-slate-800/50 rounded-xl">
+                            <h4 class="text-red-400 font-bold mb-1 uppercase text-[10px]">Күнделік 2 түсіндірмесі:</h4>
+                            <p class="text-slate-300 text-xs">${journal2 || '—'}</p>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-slate-700 pt-4">
+                        <h3 class="text-lg font-bold mb-3">«Зерде» рефлексиясы:</h3>
+                        <div class="space-y-2 text-xs">
+                            <p><span class="text-red-500 font-bold">Білім:</span> ${reflK || '—'}</p>
+                            <p><span class="text-red-500 font-bold">Эмоция:</span> ${reflE || '—'}</p>
+                            <p><span class="text-red-500 font-bold">Идея:</span> ${reflI || '—'}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // 4. Show Modal
+            document.getElementById('summaryContent').innerHTML = summaryHTML;
+            document.getElementById('resultModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+
+            // Log data to console for persistence simulation
+            console.log("Lesson Result Saved:", {
+                animals: selectedAnimals,
+                ideology: task2Response,
+                journal: [journal1, journal2],
+                reflection: { reflK, reflE, reflI },
+                timestamp: new Date().toISOString()
+            });
+        }
+    </script>
+</body>
+</html>
